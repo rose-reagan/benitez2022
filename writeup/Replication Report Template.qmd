@@ -1,6 +1,6 @@
 ---
-title: "Replication of Study X by Sample & Sample (20xx, Psychological Science)"
-author: "Replication Author[s] (contact information)"
+title: "Reproduction of The influence of linguistic form and causal explanations on the development of social essentialism by Benitez, Leshin, and Rhodes (2022, Cognition)"
+author: "Rose Reagan (reagan@ucsd.edu)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -12,8 +12,21 @@ format:
 
 ## Introduction
 
-[No abstract is needed.]  Each replication project will have a straightforward, no frills report of the study and results.  These reports will be publicly available as supplementary material for the aggregate report(s) of the project as a whole.  Also, to maximize project integrity, the intro and methods will be written and critiqued in advance of data collection.  Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for replication, and any other essential information.  It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.  
+Project Proposal Assignment:
+-In the writeup folder, complete the introduction part of the report template; this should contain
+-A short justification for your choice of experiment in terms of your research interests or research program (1 paragraph). This justification should tell us why you chose this particular paper. (2 points)
+-A description of the analyses and techniques that will be required to reproduce these findings, and what the challenges will be (1-2 paragraphs). (2 points)
+-A link to the repository and to the original paper (as hosted in your repo). The goal is that we should be able to click on these links and review that your repo is formatted right and look at the original paper.  (1 point)
 
+The paper I have chosen is "The influence of linguistic form and causal explanations on the development of social essentialism" by Josie Benitez, Rachel Leshin, and Marjorie Rhodes. As my first-year project is investigating how the way we talk to kids about social differences may influence the prevalence of essentialist thinking, this developmental psychology paper is incredibly relevant to my interests and one I quite enjoy. 
+
+This study includes a child sample and an adult sample in which participants were presented with a storybook where they learned about a novel group called the Zarpies. There were four between-subjects conditions, each following one of four combinations of language form and causal origin information. They then completed four tasks assessing different aspects of essentialism. 3/4 were binary-choice tasks in which a score of 1=essentialist response; these were then combined into an "Essentialism Composite" score out of 4. The 4th task used a 5-point Likert scale in which higher numbers indicated greater endorsement of essentialism.
+
+In the original paper, the adult and child samples were analyzed independently given the vast age-related differences in results. A mean was generated for the composite and scores for each binary test to indicate the probability of endorsing essentialist response in a given task with a 95% confidence interval. The data for the composite and binary measures were analyzed using generalized linear mixed models (GLMMM) - the authors included that they used the glmer function in R's lme4 package, specified for a binomial distribution. They then conducted Wald chi-squared tests from these results to assess significance. Effect sizes were calculated as coefficients and translated odd ratios (i.e. adults are x times more likely to endorse essentialism than chidlren). For the Likert scale measure, means were also calculated, and the authors used mixed ordinal logistic regression models for further analysis. Significance was calculated using likelihood ratio tests. Mixed effects models tested for language form and causal origin (remember, the four conditions each used a unique combination of language form and causal origin). Participant mean-centered age was used as a predictor in analysis, and simple slopes follow-up tests looked at these interactions.
+
+A main challenge here will be my complete inexperience with R and analysis more generally. I currently know next to nothing about what the above paragraph really means and writing it felt like adapting French, a language I do not speak. Thus, there will be quite the learning curve as I undertake this project. I will attempt to reproduce all of the above measures while doing additional visualization; I would like to chart out results from both the child and adult samples in ways not included in the original paper. I will also collaborate with the course instructors to brainstorm and complete additional exploratory analysis, looking at any potential patterns based on factors such as gender.
+
+I would now like to link you to the repository I have created for this project https://github.com/rose-reagan/benitez2022 and original paper https://github.com/rose-reagan/benitez2022/blob/main/original_paper/Benitez2022.pdf .
 
 ## Methods
 
