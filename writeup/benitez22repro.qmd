@@ -1,0 +1,177 @@
+---
+title: "Reproduction of The influence of linguistic form and causal explanations on the development of social essentialism by Benitez, Leshin, and Rhodes (2022, Cognition)"
+author: "Rose Reagan (reagan@ucsd.edu)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+format:
+  html:
+    toc: true
+    toc_depth: 3
+---
+
+<!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
+
+## Introduction
+
+The paper I have chosen is "The influence of linguistic form and causal explanations on the development of social essentialism" by Josie Benitez, Rachel Leshin, and Marjorie Rhodes. As my first-year project is investigating how the way we talk to kids about social differences may influence the prevalence of essentialist thinking, this developmental psychology paper is incredibly relevant to my interests and one I quite enjoy.
+
+This study includes a child sample and an adult sample in which participants were presented with a storybook where they learned about a novel group called the Zarpies. There were four between-subjects conditions, each following one of four combinations of language form and causal origin information. They then completed four tasks assessing different aspects of essentialism. 3/4 were binary-choice tasks in which a score of 1=essentialist response; these were then combined into an "Essentialism Composite" score out of 4. The 4th task used a 5-point Likert scale in which higher numbers indicated greater endorsement of essentialism.
+
+In the original paper, the adult and child samples were analyzed independently given the vast age-related differences in results. A mean was generated for the composite and scores for each binary test to indicate the probability of endorsing essentialist response in a given task with a 95% confidence interval. The data for the composite and binary measures were analyzed using generalized linear mixed models (GLMMM) - the authors included that they used the glmer function in R's lme4 package, specified for a binomial distribution. They then conducted Wald chi-squared tests from these results to assess significance. Effect sizes were calculated as coefficients and translated odd ratios (i.e. adults are x times more likely to endorse essentialism than children). For the Likert scale measure, means were also calculated, and the authors used mixed ordinal logistic regression models for further analysis. Significance was calculated using likelihood ratio tests. Mixed effects models tested for language form and causal origin (remember, the four conditions each used a unique combination of language form and causal origin). Participant mean-centered age was used as a predictor in analysis, and simple slopes follow-up tests looked at these interactions.
+
+A main challenge here will be my complete inexperience with R and analysis more generally. I currently know next to nothing about what the above paragraph really means and writing it felt like adapting French, a language I do not speak. Thus, there will be quite the learning curve as I undertake this project. I will attempt to reproduce all of the above measures while doing additional visualization; I would like to chart out results from both the child and adult samples in ways not included in the original paper. I will also collaborate with the course instructors to brainstorm and complete additional exploratory analysis, looking at any potential patterns based on factors such as gender.
+
+I would now like to link you to the repository I have created for this project https://github.com/rose-reagan/benitez2022 and original paper https://github.com/rose-reagan/benitez2022/blob/main/original_paper/Benitez2022.pdf.
+
+## Methods
+
+### Power Analysis
+
+A sample size of 200 child participant and 200 adult participants was determined based on a power analysis of effects obtained by the authors in a preceding paper, Leshin et al. 2021. For children, the power analysis sample of 200 was then inflated by researchers to a general sample of 220 in order to account for an anticipated 10% participant drop rate, the standard for studies using the lab's recruitment venue.
+
+*Project Note:* After conversation with course staff, it was determined that conducting a post-hoc power analysis is quite difficult with complex generalized effects models and out of scope for this project.
+
+### Planned Sample
+
+A target sample size of 220 child participants were recruited from a remote developmental research platform. Participants were not excluded based on responses for comprehension questions or manipulation checks. A random subset of 20% of the study videos were coded for parental interference during the study; if the rate of interference for this subset was not within the bounds of interference identified in prior work using the platform (\~1%), trial-by-trial interference coding would be conducted.
+
+200 adult participants were recruited, half in-person with undergraduate students at the host institution and half online via Prolific due to the emergence of the COVID-19 pandemic. Adult participants were excluded if they failed audio verification comprehension checks, did not complete the full study, did not meet eligibility requirements (i.e. identified as non-English speaker or as being under 18 years of age), or failed \>3/5 of the Winograd Schema questions included in the paradigm. The sample was 59.4% female, 50.86% white, 26.5% Asian, 9.4% Multiracial, 6.84% Latinx, and 7.26% Black/African American, with 5.56% declining to provide racial ethnic demographic information.
+
+### Materials
+
+This study was conducted digitally with stimuli consisting of a video file walking participants through a narrated storybook followed by four digital question-based tasks. Subjects participated using their or their family's own computer. No other materials were used.
+
+### Procedure
+
+This study used a fully crossed, between-participant 2 x 2 design in which each participant was randomly assigned to one of four experimental conditions.
+
+"Prior to beginning the test trials, participants underwent a warm-up phase to introduce them to the biological and cultural origin explanations. After hearing each causal origin explanation, participants were asked two comprehension questions: one that probed the causal origin of being able to smell things (e.g., “What about being able to smell things with your nose? Is that something that you were born with, or something you learned from other people?”), and one that probed the causal origin of knowing the ABCs (e.g., “What about knowing the ABCs? Is that something you were born with, or something you learned from other people?”)."
+
+"Participants were guided through a narrated storybook about a novel category of people referred to as “Zarpies.” The storybook contained 16 pages, each depicting an individual Zarpie displaying a novel property (e.g., having stripes in their hair) or engaging in a novel behavior (e.g., drawing stars on their knees). Each page of the storybook included a one-line description of the depicted property, which followed one of four combinations of language form and causal origin information: (a) generic form/biological origin, (b) generic form/cultural origin, (c) specific form/biological origin, or (d) specific form/cultural origin. "
+
+After participants viewed the storybook, they completed four measures of essentialist beliefs about Zarpies:
+
+Essentialism Measure #1: Category-based explanations of properties Participants will hear three Zarpie properties from the storybook and will be asked to determine whether the property reflects features of the category (e.g., “A lot of Zarpies like to do X”) or of the individual (e.g., “This Zarpie likes to do X”).
+
+Essentialism Measure #2: Flexibility of category-linked properties Participants will be told about traits or behaviors exhibited by Zarpies and will be asked whether or not they believe the Zarpie exclusively demonstrates these traits (and not others).
+
+Essentialism Measure #3: Heritability of category-linked properties Participants will hear a story about a fictitious child who was born to a Zarpie mom but was raised by a non-Zarpie mom, and will be asked two manipulation check questions to ensure that they understood the story. To assess beliefs about the heritability of category-linked properties, participant’s will then be asked to make predictions about what the child will be like in the future—specifically, whether the child will possess properties of the Zarpie parent or the non-Zarpie parent.
+
+Essentialism Measure #4: Within-category homogeneity Participants will be presented with information about two different properties exhibited by a Zarpie and will be asked to predict how many other members of the category “Zarpie” exhibit that same trait: (a) only one, (b) a few, (c) some, (d) most, or (e) all. Participants will receive training on how to use the visual scale to indicate their response before being asked the two target questions.
+
+The first three tasks involved forced-choice binary questions, and participants were given a score of 1 for essentialist responses and 0 for non-essentialist responses. An "essentialism composite" was generated from the first three measures. As the last item was a Likert scale, it was analyzed separately and not included in the composite.
+
+Authors also included two exploratory measures about participants' attitudes and intended behavior towards Zarpies (resource allocation task and feelings thermometer task). As these tasks were not central to the research questions, they were not used heavily in this paper.
+
+### Analysis Plan
+
+"We intend to run generalized linear models from the package lme4 to examine the effects of language form and causal explanations on children’s essentialist beliefs about novel social categories, including their perceptions of (a) category-based explanations, (b) flexibility of category membership, (c) the heritability of category-linked properties. We also intend to use mixed ordinal logistic regression models from the ordinal package to assess the effects of language form and causal explanations on children’s perceptions of within-category homogeneity."
+
+"Follow-Up Comparisons: If we find significant three-way interactions between language form, origin, and age-group on any of our dependent measures (see models 1f – 5f), we will conduct pairwise follow-up tests on the adult and child samples to determine the nature of the language\*origin interaction across age-groups. If we find significant three-way interactions between language form, origin, and mean-centered age within our child sample (see models 1c – 1f), we will dichotomize age into “old” and “young” via a median-split, and use pairwise follow-up tests to analyze the language\*origin interaction for “old” and “young” children. Based on the two sets of follow-up tests described above, we will further investigate either (a) the slow emergence of an adult-like pattern across age, or (b) the qualitatively distinct patterns across and within different age groups. All follow-up comparisons will be conducted using functions from the emmeans package (e.g., emmeans, emtrends).
+
+For the binary DVs (explanation items, flexibility items, and switched-at-birth items) we will report beta coefficients from the GLMER results, along with means that will be reported as the probability of providing an essentialist response with 95% confidence intervals, and report odds ratios as indicators of effect sizes. For our mixed-effects ordinal logistic regression analyses (homogeneity items), we will measure goodness of fit and report generalized R2, Pearson’s X2 likelihood ratios, and odds ratios with 95% confidence intervals, with higher numbers indicating broader generalization."
+
+My modest goals involve generating the essentialism composite and identifying means and standard deviations, exploring correlations between the essentialism measures as an investigation into convergent validity, and visualizing the data. I would like to explore the data not included in the paper from the resource allocation and feelings thermometer tasks. My ambitious goals are to run the generalized linear models described above.
+
+### Differences from Original Study
+
+As this is a reproduction project, all facets up to data analysis will be identical. I will aim to create data visualizations external to that already conducted in the original paper; this likely will not drive any differences from the original study.
+
+### Design Overview
+
+This study implemented a between-subjects 2 x 2 design in which the manipulated features were linguistic form (generic or specific) and causal origin of the characters' features (biological vs. cultural). There were four main measures, none of which were repeated within participants: three binary essentialism measures that were then combined into a composite, and a Likert scale within-category homogeneity measure.
+
+The authors would not have been able to conduct the study in this same manner using a within-participant design; use of one type of language would likely "contaminate" the other language trials. Though making the first half of the task use specific language and the latter half generic may save the study from contamination, repeating the measures may lead to a learning effect. Combining biological and cultural causal origins may be possible (i.e. half and half), but any potential differences may be difficult to interpret when the causes are not clearly separated. I have further thoughts on how the authors may have been able to adapt the task to within-subjects, but I do not think it would be worth it with the amount of changes that would have to be made, and I really like the current design!
+
+The authors do not mention demand characteristics, and I do not think this is really an issue with the child sample but I do wonder if it was clear to some of the adults that the experimenters expected them to essentialize specifically in the generalized language conditions.
+
+Thinking about confounds, I did notice that the four tasks were always conducted in the same sequential order. I wonder if randomizing the task order may make a difference, and if there is a reason the authors decided to pursue a set order. I can't find if the order of the answer choices (essentialist choice vs. specific choice) was randomized, and I definitely think they should be. I also do not think that the pages of the storybook were randomized; I don't know that this matters, but it might!
+
+### Progress Report 1
+
+I began by loading up all of the libraries needed according to the OSF files. As it stands, data is fairly clean and well-documented, broken into separate files for adult and child data. I have removed the two child subjects who did not answer the majority of the questions, as they were not included in the primary analyses. No exclusions are necessary from the clean adult data. I then made a new data frame excluding some columns that were not relevant, such as time taken to complete the study and level of media release for study recordings, just to tidy things up.
+
+Then I made a new column in each data frame for age group (adult vs. child), and then combined my two data frames using "full join." I then changed various columns from character to factor variables for analysis: language and causal origin condition, gender, race, response to comprehension checks. I ran a summary for each demographic factor to report below, and ran summaries of the comprehension checks to get a sense of how they were doing, even though the authors did not exclude participants based on this.
+
+My next step is to generate the composite; I've worked to make a new data frame with the relevant columns for the composite, but I need to think about how best to proceed.
+
+### Actual Sample
+
+Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
+A final sample size of 199 children (2 excluded for failing to respond to the majority of test questions) and 234 adults was analyzed.
+
+Child:
+
+```         
+ Age Distribution
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  4.495   5.221   5.878   6.069   6.830   7.954 
+```
+
+```         
+Gender Distribution
+female   male 
+   108     91 
+```
+
+```         
+Race
+Not Reported     Asian     Mixed     White 
+       13        18        28       140 
+```
+
+Adults
+
+```         
+  Gender 
+   female                  male               Non-binary/third gender 
+  139                      93                       2 
+```
+
+```         
+Race
+ Asian           Black           Mixed      Native American           White            NA
+  62              17              22               1                   119              13 
+```
+
+#### Differences from pre-data collection methods plan
+
+Any differences from what was described as the original plan, or “none”.
+
+## Results
+
+### Data preparation
+
+Data preparation following the analysis plan.
+
+```{r include=F}
+### Data Preparation
+
+#### Load Relevant Libraries and Functions
+
+#### Import data
+
+#### Data exclusion / filtering
+
+#### Prepare data for analysis - create columns etc.
+```
+
+### Confirmatory analysis
+
+The analyses as specified in the analysis plan.
+
+*Side-by-side graph with original graph is ideal here*
+
+### Exploratory analyses
+
+Any follow-up analyses desired (not required).
+
+## Discussion
+
+### Summary of Replication Attempt
+
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.
+
+### Commentary
+
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt. None of these need to be long.
